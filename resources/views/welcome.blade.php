@@ -6,10 +6,16 @@
 
         <title>Laravel</title>
 
+        <!-- Scripts -->
+		<script src="{{ asset('js/manifest.js') }}" defer></script>
+		<script src="{{ asset('js/vendor.js') }}" defer></script>
+		<script src="{{ asset('js/app.js') }}" defer></script>
+
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
         <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <style>
             html, body {
                 background-color: #fff;
@@ -95,6 +101,9 @@
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
+        </div>
+        <div id="app">
+			<example-component></example-component>
         </div>
     </body>
 </html>
