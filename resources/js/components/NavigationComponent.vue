@@ -4,7 +4,7 @@
 		<router-link to="/">Home</router-link>
 		<router-link to="/dashboard">Dashboard</router-link>
 		{{ user.name }}
-		<a href="#">Sign out</a>
+		<a href="#" @click.prevent="signOut">Sign out</a>
 	</template>
 	<template v-else>
 		<router-link to="/login">Login</router-link>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-	import { mapGetters } from 'vuex';
+	import { mapGetters, mapActions } from 'vuex';
 
 	export default {
 		computed: {
@@ -21,6 +21,18 @@
 				authenticated: 'auth/authenticated',
 				user: 'auth/user',
 			})
+		},
+		methods: {
+			...mapActions({
+				signOutAction: 'auth/signOut'
+			}),
+			signOut() {
+				this.signOutAction().then(() => {
+					this.$router.replace({
+						path: '/'
+					});
+				});
+			}
 		}
 	}
 </script>
