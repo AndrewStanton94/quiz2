@@ -10,6 +10,7 @@ import axios from 'axios';
 import Vue from 'vue';
 import router from './router.js';
 import store from './store';
+import subscriber from './store/subscriber'
 
 import App from './components/App.vue';
 

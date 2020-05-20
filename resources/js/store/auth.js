@@ -31,11 +31,7 @@ export default {
 		async attempt({commit}, token) {
 			commit('SET_TOKEN', token);
 			try {
-				let response = await axios.get('auth/me', {
-					headers: {
-						'Authorization': `Bearer ${token}`
-					}
-				});
+				let response = await axios.get('auth/me');
 				commit('SET_USER', response.data);
 			} catch (e) {
 				commit('SET_TOKEN', null);
