@@ -29,6 +29,9 @@ export default {
 		},
 
 		async attempt({commit}, token) {
+			if(!token) {
+				return;
+			}
 			commit('SET_TOKEN', token);
 			try {
 				let response = await axios.get('auth/me');
