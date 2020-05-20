@@ -25,7 +25,7 @@ axios.defaults.baseURL = 'https://apps.andrewstanton.tech/quiz2/public/api/';
  */
 
 const files = require.context('./', true, /\.vue$/i)
-files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+files.keys().map((key) => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 // Vue.component('nav-component', require('./components/Nav.vue').default);
 
@@ -37,7 +37,7 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 
 store.dispatch('auth/attempt', localStorage.getItem('token')).then(() => {
 	new Vue({
-		render: createElement => createElement(App),
+		render: (createElement) => createElement(App),
 		router,
 		store
 	}).$mount('#app');

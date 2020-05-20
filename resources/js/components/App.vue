@@ -1,22 +1,24 @@
 <template>
-<section>
-	<div class="container">Hello {{bundler}}</div>
-	<navigation-component />
+	<section>
+		<div class="container">
+			Hello {{ bundler }}
+		</div>
+		<navigation-component />
 
-	<!-- route outlet -->
-	<!-- component matched by the route will render here -->
-	<router-view></router-view>
-</section>
+		<!-- route outlet -->
+		<!-- component matched by the route will render here -->
+		<router-view />
+	</section>
 </template>
 
 <script>
-	import Vue from "vue";
+import Vue from 'vue';
 
-	export default Vue.extend({
-		data() {
-			return {
-				bundler: "Parcel"
-			};
-		}
-	});
+export default Vue.extend({
+	data() {
+		return {
+			bundler: 'Parcel',
+		};
+	},
+});
 </script>
