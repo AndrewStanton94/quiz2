@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store from './store';
 Vue.use(VueRouter);
 
 import Home from './components/HomeComponent.vue';
@@ -7,9 +8,27 @@ import Dashboard from './components/DashboardComponent.vue';
 import Login from './components/LoginComponent.vue';
 
 const routes = [
-	{ path: '/', component: Home },
-	{ path: '/dashboard', component: Dashboard },
-	{ path: '/login', component: Login }
+	{
+		path: '/',
+		component: Home
+	},
+	{
+		path: '/dashboard',
+		component: Dashboard,
+		beforeEnter: (to, from, next) => {
+			console.log();
+			if (!store.getters['auth/authenticated']){
+				next({
+					'path': '/login'
+				});
+			}
+			next();
+		}
+	},
+	{
+		path: '/login',
+		component: Login
+	}
 ]
 
 const router = new VueRouter({
