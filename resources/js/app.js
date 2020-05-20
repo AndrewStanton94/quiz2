@@ -35,10 +35,11 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-store.dispatch('auth/attempt', localStorage.getItem('token'));
+store.dispatch('auth/attempt', localStorage.getItem('token')).then(() => {
+	new Vue({
+		render: createElement => createElement(App),
+		router,
+		store
+	}).$mount('#app');
+});
 
-new Vue({
-	render: createElement => createElement(App),
-	router,
-	store
-}).$mount('#app');
