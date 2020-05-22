@@ -22,3 +22,11 @@ Route::group([
 	Route::post('signout', 'SignOutController');
 	Route::get('me', 'MeController');
 });
+
+Route::group([
+	'prefix' => 'quiz'
+], function(){
+	Route::post('', 'QuizController@create');
+	Route::get('mine', 'QuizController@myQuizzes');
+	Route::get('others', 'QuizController@othersQuizzes');
+});
