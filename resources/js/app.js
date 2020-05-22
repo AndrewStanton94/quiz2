@@ -36,6 +36,7 @@ files.keys().map((key) => Vue.component(key.split('/').pop().split('.')[0], file
  */
 
 store.dispatch('auth/attempt', localStorage.getItem('token')).then(() => {
+	store.dispatch('quiz/get');
 	new Vue({
 		render: (createElement) => createElement(App),
 		router,
