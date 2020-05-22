@@ -1,6 +1,6 @@
 <template>
 	<section>
-		<h1>Login</h1>
+		<h1 class="display-4">Login</h1>
 		<form @submit.prevent="submit">
 			<label>
 				Email

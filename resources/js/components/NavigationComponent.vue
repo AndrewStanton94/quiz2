@@ -1,20 +1,24 @@
 <template>
-	<nav>
+	<nav class="nav">
 		<template v-if="authenticated">
-			<router-link to="/">
+			<router-link class="nav-link" to="/">
 				Home
 			</router-link>
-			<router-link to="/dashboard">
+			<router-link class="nav-link" to="/dashboard">
 				Dashboard
 			</router-link>
-			{{ user.name }}
-			<a
-				href="#"
-				@click.prevent="signOut"
-			>Sign out</a>
+			<div class="nav-link">
+				{{ user.name }}
+			</div>
+			<div class="nav-link">
+				<a
+					href="#"
+					@click.prevent="signOut"
+				>Sign out</a>
+			</div>
 		</template>
 		<template v-else>
-			<router-link to="/login">
+			<router-link class="nav-link" to="/login">
 				Login
 			</router-link>
 		</template>
