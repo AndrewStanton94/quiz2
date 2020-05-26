@@ -5,6 +5,7 @@ Vue.use(VueRouter);
 
 import Home from './components/HomeComponent.vue';
 import Dashboard from './components/DashboardComponent.vue';
+import Editor from './components/QuizEditorComponent.vue';
 import Login from './components/LoginComponent.vue';
 
 const routes = [
@@ -24,6 +25,10 @@ const routes = [
 			}
 			next();
 		}
+	},
+	{
+		path: '/edit/:quiz',
+		component: Editor
 	},
 	{
 		path: '/login',
