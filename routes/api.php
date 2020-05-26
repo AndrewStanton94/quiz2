@@ -51,3 +51,10 @@ Route::group([
 	Route::get('fromQuiz/{quiz}', 'QuestionController@quizQuestions');
 	Route::get('fromQuiz/{quiz}/{round}', 'QuestionController@roundQuestions');
 });
+
+Route::group([
+	'prefix' => 'answer'
+], function(){
+	Route::post('', 'AnswerController@Create');
+	Route::get('from/{quiz}', 'AnswerController@myAnswers');
+});
