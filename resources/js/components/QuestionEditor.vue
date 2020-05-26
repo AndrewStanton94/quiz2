@@ -7,16 +7,17 @@
 </template>
 
 <script>
-	import Vue from 'vue';
+import Vue from 'vue';
 
-	export default Vue.extend({
-		props: {
-			question: {
-				type: Object
-			}
-		},
-		async mounted() {
-			console.log('mounted question editor page');
+export default Vue.extend({
+	props: {
+		question: {
+			type: Object,
+			default: ()=> ({}),
 		}
-	});
+	},
+	async mounted() {
+		console.log('mounted question editor page');
+	}
+});
 </script>

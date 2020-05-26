@@ -1,10 +1,15 @@
 <template>
 	<section>
-		<h1 class="display-4">Home</h1>
+		<h1 class="display-4">
+			Home
+		</h1>
 		<p>A quiz app. Built with VueJS and Laravel. Go to the dashboard to create quizzes.</p>
 		<h2>Quizzes to play</h2>
 		<ul>
-			<li v-for="quiz in othersQuizzes">
+			<li
+				v-for="(quiz, i) in othersQuizzes"
+				:key="i"
+			>
 				{{ quiz.quiz_name }}
 			</li>
 		</ul>

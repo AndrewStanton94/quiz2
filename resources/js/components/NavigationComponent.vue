@@ -1,10 +1,16 @@
 <template>
 	<nav class="nav">
 		<template v-if="authenticated">
-			<router-link class="nav-link" to="/">
+			<router-link
+				class="nav-link"
+				to="/"
+			>
 				Home
 			</router-link>
-			<router-link class="nav-link" to="/dashboard">
+			<router-link
+				class="nav-link"
+				to="/dashboard"
+			>
 				Dashboard
 			</router-link>
 			<div class="nav-link">
@@ -18,7 +24,10 @@
 			</div>
 		</template>
 		<template v-else>
-			<router-link class="nav-link" to="/login">
+			<router-link
+				class="nav-link"
+				to="/login"
+			>
 				Login
 			</router-link>
 		</template>
