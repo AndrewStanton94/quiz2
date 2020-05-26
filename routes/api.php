@@ -30,3 +30,24 @@ Route::group([
 	Route::get('mine', 'QuizController@myQuizzes');
 	Route::get('others', 'QuizController@othersQuizzes');
 });
+
+Route::group([
+	'prefix' => 'round'
+], function(){
+	Route::post('', 'RoundController@create');
+	Route::get('{round}', function (App\Round $round) {
+		return $round;
+	});
+	Route::get('fromQuiz/{quiz}', 'RoundController@quizRounds');
+});
+
+Route::group([
+	'prefix' => 'question'
+], function(){
+	Route::post('', 'QuestionController@create');
+	Route::get('{question}', function (App\Question $question) {
+		return $question;
+	});
+	Route::get('fromQuiz/{quiz}', 'QuestionController@quizQuestions');
+	Route::get('fromQuiz/{quiz}/{round}', 'QuestionController@roundQuestions');
+});
