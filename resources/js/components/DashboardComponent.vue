@@ -18,7 +18,9 @@
 		<h2>Your quizzes</h2>
 		<ul>
 			<li v-for="quiz in ownQuizzes">
-				{{quiz.quiz_name}}
+				<router-link class="nav-link" :to="generateURL(quiz)">
+					{{quiz.quiz_name}}
+				</router-link>
 			</li>
 		</ul>
 	</section>
@@ -53,6 +55,9 @@ export default Vue.extend({
 		},
 		createQuiz() {
 			this.createQuizAction(this.newQuiz);
+		},
+		generateURL({ id }) {
+			return `/edit/${id}`
 		}
 	}
 });
