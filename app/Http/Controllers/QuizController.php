@@ -25,7 +25,7 @@ class QuizController extends Controller
 	function myQuizzes(Request $request) {
 		$user = $request->user();
 
-		$mine = Quiz::where('question_master', $user->id)->get();;
+		$mine = Quiz::where('question_master', $user->id)->get();
 		return response()->json($mine);
 	}
 
