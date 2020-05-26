@@ -32,7 +32,7 @@ class QuizController extends Controller
 	function othersQuizzes(Request $request) {
 		$user = $request->user();
 
-		$others = Quiz::where('question_master', '<>', $user->id)->get();;
+		$others = Quiz::where('question_master', '<>', $user->id)->get();
 		return response()->json($others);
 	}
 }
