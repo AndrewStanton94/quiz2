@@ -9,6 +9,15 @@ import Editor from './components/QuizEditorComponent.vue';
 import Play from './components/PlayQuizComponent.vue';
 import Login from './components/LoginComponent.vue';
 
+const authMiddleware = (to, from, next) => {
+	if (!store.getters['auth/authenticated']){
+		next({
+		'path': '/login'
+		});
+	}
+	next();
+}
+
 const routes = [
 	{
 		path: '/',
@@ -17,23 +26,17 @@ const routes = [
 	{
 		path: '/dashboard',
 		component: Dashboard,
-		beforeEnter: (to, from, next) => {
-			console.log();
-			if (!store.getters['auth/authenticated']){
-				next({
-					'path': '/login'
-				});
-			}
-			next();
-		}
+		beforeEnter: authMiddleware,
 	},
 	{
 		path: '/edit/:quiz',
-		component: Editor
+		component: Editor,
+		beforeEnter: authMiddleware,
 	},
 	{
 		path: '/play/:quiz',
-		component: Play
+		component: Play,
+		beforeEnter: authMiddleware,
 	},
 	{
 		path: '/login',
