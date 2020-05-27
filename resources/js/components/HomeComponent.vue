@@ -10,7 +10,12 @@
 				v-for="(quiz, i) in othersQuizzes"
 				:key="i"
 			>
-				{{ quiz.quiz_name }}
+				<router-link
+					class="nav-link"
+					:to="generateURL(quiz)"
+				>
+					{{ quiz.quiz_name }}
+				</router-link>
 			</li>
 		</ul>
 	</section>
@@ -25,6 +30,11 @@ export default Vue.extend({
 		...mapGetters({
 			othersQuizzes: 'quiz/othersQuizzes',
 		})
+	},
+	methods: {
+		generateURL({ id }) {
+			return `/play/${id}`
+		}
 	}
 });
 </script>
