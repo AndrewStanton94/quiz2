@@ -17,9 +17,10 @@ class AnswerController extends Controller
 		$answer = new Answer();
 		$answer->user = $user->id;
 		$answer->quiz = $request->quiz;
+		$answer->round = $request->round;
 		$answer->question = $request->question;
 		$answer->answer = $request->answer;
-		$answer->correct = $request->correct;
+		$answer->score = $request->score;
 		$answer->save();
 		return response()->json($answer);
 	}
@@ -32,5 +33,16 @@ class AnswerController extends Controller
 			['quiz', '=', $quiz]
 		])->get();
 		return response()->json($mine);
+	}
+
+	function update(Request $request, $answerId) {
+		$answer = Answer::find($answerId);
+
+		$answer->answer = $request->answer;
+		$answer->score = $request->score;
+
+		$answer->save();
+
+		return response()->json($answer);
 	}
 }

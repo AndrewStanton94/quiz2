@@ -17,9 +17,10 @@ class CreateAnswersTable extends Migration
 			$table->id();
 			$table->foreignId('user');
 			$table->foreignId('quiz');
+			$table->foreignId('round');
 			$table->foreignId('question');
 			$table->string('answer');
-			$table->boolean('correct');
+			$table->float('score', 3, 1)->nullable();
 			$table->timestamps();
 		});
 	}
