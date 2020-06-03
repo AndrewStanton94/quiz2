@@ -57,4 +57,5 @@ Route::group([
 ], function(){
 	Route::post('', 'AnswerController@Create');
 	Route::get('from/{quiz}', 'AnswerController@myAnswers');
+	Route::patch('{answer}', 'AnswerController@update');
 });
