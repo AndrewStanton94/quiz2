@@ -12,7 +12,7 @@ import Login from './components/LoginComponent.vue';
 const authMiddleware = (to, from, next) => {
 	if (!store.getters['auth/authenticated']){
 		next({
-		'path': '/login'
+			'path': '/login'
 		});
 	}
 	next();

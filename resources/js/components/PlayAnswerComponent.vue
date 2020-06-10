@@ -1,6 +1,6 @@
 <template>
 	<section>
-		<p>{{question.question_order}}-{{question.question}}</p>
+		<p>{{ question.question_order }}-{{ question.question }}</p>
 		<div class="form-row">
 			<div
 				class="col"
@@ -11,15 +11,15 @@
 					Answer
 				</label>
 				<input
-					class="form-control"
-					v-model="answer"
 					:id="questionElemId"
+					v-model="answer"
+					class="form-control"
 					@blur="saveAnswer"
 				>
 			</div>
 			<div
-				class="col-md-4"
 				v-if="playState.marking"
+				class="col-md-4"
 			>
 				<label
 					:for="scoreElemId"
@@ -27,9 +27,9 @@
 					Score
 				</label>
 				<input
-					class="form-control"
-					v-model="score"
 					:id="scoreElemId"
+					v-model="score"
+					class="form-control"
 					@blur="saveAnswer"
 				>
 			</div>
@@ -42,6 +42,12 @@ import Vue from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 
 export default Vue.extend({
+	props: {
+		question: {
+			type: Object,
+			default: () => ({}),
+		},
+	},
 	data() {
 		return {
 			answer: '',
@@ -52,12 +58,6 @@ export default Vue.extend({
 			questionElemId: this.$id('answer'),
 			scoreElemId: this.$id('score'),
 		};
-	},
-	props: {
-		question: {
-			type: Object,
-			default: () => ({}),
-		},
 	},
 	computed: {
 		...mapGetters({

@@ -7,9 +7,9 @@
 			v-for="(question, i) in questions"
 		>
 			<PlayAnswerComponent
+				v-if="question.question_order === playState.question"
 				:key="i"
 				:question="question"
-				v-if="question.question_order === playState.question"
 			/>
 		</template>
 	</section>
@@ -20,9 +20,6 @@ import Vue from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 
 export default Vue.extend({
-	data() {
-		return { };
-	},
 	props: {
 		round: {
 			type: Object,
@@ -33,8 +30,11 @@ export default Vue.extend({
 			default: () => [],
 		},
 	},
+	data() {
+		return { };
+	},
 	computed: {
-		...mapGetters({ 
+		...mapGetters({
 			playState: 'playState/playstate'
 		}),
 	},

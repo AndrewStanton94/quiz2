@@ -1,15 +1,17 @@
 <template>
 	<section>
-		<h1 class="display-4">{{ currentQuiz.quiz_name }}</h1>
+		<h1 class="display-4">
+			{{ currentQuiz.quiz_name }}
+		</h1>
 
-		<template 
+		<template
 			v-for="(round, i) in rounds"
 		>
-			<PlayRoundComponent 
-				:key="i"
-				:round = "round"
-				:questions = "questionsForRounds[round.round_order]"
+			<PlayRoundComponent
 				v-if="round.round_order === playState.round"
+				:key="i"
+				:round="round"
+				:questions="questionsForRounds[round.round_order]"
 			/>
 		</template>
 		<PlayNavigationComponent />

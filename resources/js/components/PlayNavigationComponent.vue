@@ -2,8 +2,8 @@
 	<nav class="p-8">
 		<button
 			class="btn btn-block btn-primary"
-			@click="nextQuestion"
 			:disabled="!hasMoreQuestions"
+			@click="nextQuestion"
 		>
 			Next
 		</button>
@@ -18,8 +18,6 @@ export default Vue.extend({
 	data() {
 		return {
 		};
-	},
-	props: {
 	},
 	computed: {
 		...mapGetters({
