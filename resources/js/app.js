@@ -35,6 +35,23 @@ files.keys().map((key) => Vue.component(key.split('/').pop().split('.')[0], file
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+// From: https://stackoverflow.com/a/54731059
+Vue.use((Vue) => {
+	// Assign a unique id to each component
+	let uuid = 0;
+	Vue.mixin({
+		beforeCreate: function() {
+			this.uuid = uuid.toString();
+			uuid += 1;
+		},
+	});
+
+	// Generate a component-scoped id
+	Vue.prototype.$id = function(id) {
+		return "uid-" + this.uuid + "-" + id;
+	};
+});
+
 store.dispatch('auth/attempt', localStorage.getItem('token')).then(() => {
 	store.dispatch('quiz/get');
 	new Vue({

@@ -5,6 +5,8 @@ import auth from './auth';
 import quiz from './quiz';
 import round from './round';
 import question from './question';
+import answer from './answer';
+import playState from './playState';
 
 Vue.use(Vuex);
 
@@ -22,6 +24,8 @@ export default new Vuex.Store({
 		auth,
 		quiz,
 		round,
-		question
+		question,
+		answer,
+		playState
 	}
 });
