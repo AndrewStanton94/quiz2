@@ -1,5 +1,5 @@
 <template>
-	<nav class="p-8">
+	<nav class="py-4">
 		<button
 			class="btn btn-block btn-primary"
 			:disabled="!hasMoreQuestions"
