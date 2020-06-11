@@ -3,9 +3,9 @@ import axios from 'axios';
 export default {
 	namespaced: true,
 	state: {
-		quiz: '7',
-		round: '1',
-		question: '1',
+		quiz: null,
+		round: null,
+		question: null,
 		playing: false,
 		marking: false,
 	},
@@ -15,15 +15,20 @@ export default {
 		},
 	},
 	mutations: {
-		SET_PLAYSTATE(state, playstate) {
-			state = playstate;
+		SET_PLAYSTATE(state, {quiz, round, question, playing, marking}) {
+			state.quiz = quiz;
+			state.round = round;
+			state.question = question;
+			state.playing = playing;
+			state.marking = marking;
 		},
 	},
 	actions: {
 		startGame ({ commit }, quiz) {
 			const playstate = {
-				round: String(quiz),
+				quiz: String(quiz),
 				question: '1',
+				round: '1',
 				playing: true,
 				marking: false,
 			};
