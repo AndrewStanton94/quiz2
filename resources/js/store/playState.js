@@ -11,16 +11,24 @@ export default {
 	},
 	getters: {
 		playstate(state) {
-			console.log('returning the playstate');
 			return state;
 		},
 	},
 	mutations: {
-		SET_PLAYSTATE(state, { playstate}) {
+		SET_PLAYSTATE(state, playstate) {
 			state = playstate;
 		},
 	},
 	actions: {
+		startGame ({ commit }, quiz) {
+			const playstate = {
+				round: String(quiz),
+				question: '1',
+				playing: true,
+				marking: false,
+			};
+			commit('SET_PLAYSTATE', playstate);
+		},
 		incrementQuestion ({ getters, commit }) {
 			const { playstate } = getters;
 			// TODO remove this once I've pointed out the numbers to laravel
@@ -32,7 +40,7 @@ export default {
 			const { playstate } = getters;
 			// TODO remove this once I've pointed out the numbers to laravel
 			playstate.round = String(parseInt(playstate.round) + 1);
-			playstate.question = '0';
+			playstate.question = '1';
 
 			commit('SET_PLAYSTATE', playstate);
 		}

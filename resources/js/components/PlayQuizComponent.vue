@@ -70,12 +70,14 @@ export default Vue.extend({
 		}
 	},
 	async mounted() {
+		this.startGame(this.quizId);
 		this.getAnswers(this.quizId);
 		this.getRounds(this.quizId);
 		this.getQuestions(this.quizId);
 	},
 	methods: {
 		...mapActions({
+			startGame: 'playState/startGame',
 			getAnswers: 'answer/get',
 			getRounds: 'round/get',
 			getQuestions: 'question/get',
