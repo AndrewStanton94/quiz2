@@ -96,12 +96,12 @@ export default Vue.extend({
 			);
 		},
 		nextQuestion () {
-			const question = parseInt(this.playState.question);
+			const question = this.playState.question;
 			const nextQuestion =  1 + question;
 			const {todo} = this.questionsOrdered;
 			if (todo.length >= 1) {
 				const foundQuestion = todo.find( ({ question_order }) =>
-					parseInt(question_order) === nextQuestion
+					question_order === nextQuestion
 				);
 				if (foundQuestion !== undefined ) {
 					console.log('Need to increment question');

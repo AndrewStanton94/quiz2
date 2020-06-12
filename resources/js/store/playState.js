@@ -26,9 +26,9 @@ export default {
 	actions: {
 		startGame ({ commit }, quiz) {
 			const playstate = {
-				quiz: String(quiz),
-				question: '1',
-				round: '1',
+				quiz: quiz,
+				question: 1,
+				round: 1,
 				playing: true,
 				marking: false,
 			};
@@ -36,16 +36,14 @@ export default {
 		},
 		incrementQuestion ({ getters, commit }) {
 			const { playstate } = getters;
-			// TODO remove this once I've pointed out the numbers to laravel
-			playstate.question = String(parseInt(playstate.question) + 1);
+			playstate.question = playstate.question + 1;
 
 			commit('SET_PLAYSTATE', playstate);
 		},
 		incrementRound ({ getters, commit }) {
 			const { playstate } = getters;
-			// TODO remove this once I've pointed out the numbers to laravel
-			playstate.round = String(parseInt(playstate.round) + 1);
-			playstate.question = '1';
+			playstate.round = playstate.round + 1;
+			playstate.question = 1;
 
 			commit('SET_PLAYSTATE', playstate);
 		}

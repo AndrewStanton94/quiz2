@@ -37,7 +37,7 @@ export default {
 		create({ getters, commit}, roundInfo) {
 			try {
 				axios.post('round', roundInfo).then(({data}) => {
-					const roundList = getters.rounds[parseInt(data.quiz)];
+					const roundList = getters.rounds[data.quiz];
 					roundList.push(data);
 					commit('SET_ROUNDS', roundList)
 				});

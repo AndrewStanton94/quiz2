@@ -41,7 +41,7 @@ export default {
 			axios.post('answer', answerInfo).then(({data}) => {
 				// TODO: Validate the attributes
 				console.log(data);
-				const quizAnswers = getters.answers[parseInt(data.quiz)];
+				const quizAnswers = getters.answers[data.quiz];
 				quizAnswers.push(data);
 				commit('SET_ANSWERS', quizAnswers)
 			}).catch(( err ) => console.log(err));
@@ -52,7 +52,7 @@ export default {
 			axios.patch(`answer/${id}`, {answer, score}).then(({data}) => {
 				// TODO: Validate the attributes
 				console.log(data);
-				const quizAnswers = getters.answers[parseInt(data.quiz)];
+				const quizAnswers = getters.answers[data.quiz];
 				const indexToReplace = quizAnswers.findIndex(
 					(ans) => ans.id === data.id
 				);

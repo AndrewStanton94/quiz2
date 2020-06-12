@@ -40,7 +40,7 @@ export default {
 			console.log(questionInfo);
 			try {
 				axios.post('question', questionInfo).then(({data}) => {
-					const questionList = getters.questions[parseInt(data.quiz)];
+					const questionList = getters.questions[data.quiz];
 					questionList.push(data);
 					commit('SET_QUESTIONS', questionList)
 				});
