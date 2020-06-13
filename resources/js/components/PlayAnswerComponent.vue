@@ -12,6 +12,7 @@
 				</label>
 				<input
 					:id="questionElemId"
+					:disabled="playState.marking"
 					v-model="answer"
 					class="form-control"
 					@blur="saveAnswer"
