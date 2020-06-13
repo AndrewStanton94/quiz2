@@ -8,6 +8,7 @@ export default {
 		question: null,
 		playing: false,
 		marking: false,
+		resumeAt: {},
 	},
 	getters: {
 		playstate(state) {
@@ -15,12 +16,13 @@ export default {
 		},
 	},
 	mutations: {
-		SET_PLAYSTATE(state, {quiz, round, question, playing, marking}) {
+		SET_PLAYSTATE(state, {quiz, round, question, playing, marking, resumeAt}) {
 			state.quiz = quiz;
 			state.round = round;
 			state.question = question;
 			state.playing = playing;
 			state.marking = marking;
+			state.resumeAt = resumeAt;
 		},
 	},
 	actions: {
@@ -46,6 +48,27 @@ export default {
 			playstate.question = 1;
 
 			commit('SET_PLAYSTATE', playstate);
-		}
+		},
+		markRound ({ getters, commit }, { backTo, resumeAt }) {
+			const { playstate } = getters;
+			playstate.playing = false;
+			playstate.marking = true;
+			playstate.resumeAt = resumeAt;
+			playstate.round = backTo.round;
+			playstate.question = backTo.question;
+			commit('SET_PLAYSTATE', playstate);
+		},
+		resumePlay ({ getters, commit }) {
+			const { playstate } = getters;
+			const { round, question } = playstate.resumeAt;
+			playstate.playing = true;
+			playstate.marking = false;
+
+			playstate.round = round;
+			playstate.question = question;
+			playstate.resumeAt = {};
+
+			commit('SET_PLAYSTATE', playstate);
+		},
 	}
 };

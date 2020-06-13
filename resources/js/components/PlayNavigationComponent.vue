@@ -1,12 +1,33 @@
 <template>
-	<nav class="py-4">
-		<button
-			class="btn btn-block btn-primary"
-			:disabled="!hasMoreQuestions"
-			@click="nextQuestion"
+	<nav
+		class="py-4 form-row align-items-baseline"
+	>
+
+		<div
+			class="col"
 		>
-			Next
-		</button>
+			<button
+				class="btn btn-block btn-primary"
+				:disabled="!hasMoreQuestions"
+				@click="nextQuestion"
+			>
+				Next
+			</button>
+		</div>
+		<div
+			class="col-md-4"
+		>
+			<label
+				for="isMarking"
+			>
+				Mark
+			</label>
+			<input
+				type="checkbox"
+				id="isMarking"
+				v-model="isMarking"
+		>
+		</div>
 	</nav>
 </template>
 
@@ -81,6 +102,34 @@ export default Vue.extend({
 				this.questionsOrdered.todo.length
 				|| this.roundsOrdered.todo.length
 			);
+		},
+		isMarking: {
+			get () {
+				return this.playState.marking;
+			},
+			set (value) {
+				if (value) {
+					const questions = this.questionsOrdered;
+					const rounds = this.roundsOrdered;
+					const backTo = {
+						round: rounds.current.round_order,
+						question: (
+							questions.done[0] || questions.current
+						).question_order,
+					};
+					const resumeAt = {
+						round: (
+							// TODO: Handle the end of the quiz better
+							rounds.todo[0] || rounds.current
+						).round_order,
+						question: 1,
+					};
+					this.markRound({backTo, resumeAt});
+				}
+				else {
+					this.resumePlay();
+				}
+			}
 		}
 	},
 	async mounted() {
@@ -89,6 +138,8 @@ export default Vue.extend({
 		...mapActions({
 			incrementQuestion: 'playState/incrementQuestion',
 			incrementRound: 'playState/incrementRound',
+			markRound: 'playState/markRound',
+			resumePlay: 'playState/resumePlay',
 		}),
 		questionsFromRound(roundChosen = this.playState.round) {
 			return this.questionsFromQuiz.filter(
