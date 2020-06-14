@@ -35,6 +35,13 @@
 import Vue from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 
+const sortByNumericProperty = (list, property) => {
+	// TODO: type check the inputs
+	return list.sort((a, b) => {
+		return a[property] - b[property];
+	});
+};
+
 export default Vue.extend({
 	data() {
 		return {
@@ -64,6 +71,8 @@ export default Vue.extend({
 				if (ro > round ) {
 					acc.todo.push(cur);
 				}
+				sortByNumericProperty(acc.done, 'round_order');
+				sortByNumericProperty(acc.todo, 'round_order');
 				return acc;
 			}, {
 				done: [],
@@ -90,6 +99,8 @@ export default Vue.extend({
 				if (qo > question ) {
 					acc.todo.push(cur);
 				}
+				sortByNumericProperty(acc.done, 'question_order');
+				sortByNumericProperty(acc.todo, 'question_order');
 				return acc;
 			}, {
 				done: [],
