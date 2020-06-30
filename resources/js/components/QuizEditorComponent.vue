@@ -1,6 +1,26 @@
 <template>
 	<section>
-		<h1>{{ currentQuiz.quiz_name }}</h1>
+		<header>
+			<div
+				class="row p-4 align-items-baseline"
+			>
+				<h1
+					class="col-md-8"
+					:contenteditable="editTitle"
+					:class="{ 'form-control' : editTitle }"
+					@blur="captureNewName($event)"
+				>
+					{{ currentQuiz.quiz_name }}
+				</h1>
+				<button
+					class="col btn btn-primary"
+					@click="toggleNameEdit"
+				>
+					Edit quiz name
+				</button>
+			</div>
+		</header>
+
 		<round-editor
 			v-for="(round, i) in rounds"
 			:key="i"
@@ -57,6 +77,7 @@ import { mapGetters, mapActions } from 'vuex';
 export default Vue.extend({
 	data() {
 		return {
+			editTitle: false,
 			showNewRound: false,
 			newRound: {
 				round_name: '',
@@ -96,7 +117,19 @@ export default Vue.extend({
 			getRounds: 'round/get',
 			getQuestions: 'question/get',
 			newRoundAction: 'round/create',
+			renameQuiz: 'quiz/rename',
 		}),
+		captureNewName(e) {
+			console.log(e.target.innerText);
+			this.currentQuiz.quiz_name = e.target.innerText;
+		},
+		toggleNameEdit() {
+			const currentState = this.editTitle;
+			if (currentState) {
+				this.renameQuiz(this.currentQuiz);
+			}
+			this.editTitle = !currentState;
+		},
 		toggleNewRound() {
 			this.newRound.round_order = this.howManyRounds + 1;
 			this.showNewRound = !this.showNewRound;

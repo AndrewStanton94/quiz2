@@ -29,6 +29,7 @@ Route::group([
 	Route::post('', 'QuizController@create');
 	Route::get('mine', 'QuizController@myQuizzes');
 	Route::get('others', 'QuizController@othersQuizzes');
+	Route::patch('{quizId}', 'QuizController@updateQuiz');
 });
 
 Route::group([

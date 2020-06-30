@@ -25,7 +25,17 @@ export default {
 			console.log(state.ownQuizzes);
 			state.ownQuizzes.push(newQuiz);
 			console.log(state.ownQuizzes);
-		}
+		},
+		UPDATE_QUIZ(state, updatedQuiz) {
+			const myQuizzes = state.ownQuizzes;
+
+			const toRemove = myQuizzes.findIndex((quiz) =>
+				quiz.id === updatedQuiz.id
+			);
+			myQuizzes.splice(toRemove, 1, updatedQuiz);
+
+			state.ownQuizzes = [ ...myQuizzes ];
+		},
 	},
 	actions: {
 		get({ commit }, credentials) {
@@ -42,6 +52,16 @@ export default {
 				axios.post('quiz', quizInfo).then(({data}) =>
 					commit('APPEND_OWN_QUIZZ', data)
 				);
+			} catch (e) {
+				console.warn(e);
+			}
+		},
+		async rename({ commit}, {id, quiz_name}) {
+			console.log(id, quiz_name);
+			try {
+				const {data} = await axios.patch(`quiz/${id}`, { quiz_name });
+				console.log(data);
+				commit('UPDATE_QUIZ', data);
 			} catch (e) {
 				console.warn(e);
 			}

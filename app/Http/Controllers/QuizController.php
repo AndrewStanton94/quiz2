@@ -35,6 +35,17 @@ class QuizController extends Controller
 		$others = Quiz::where('question_master', '<>', $user->id)->get();
 		return response()->json($others);
 	}
+
+	function updateQuiz(Request $request, $quizId) {
+		$quiz = Quiz::find($quizId);
+
+		$quiz->quiz_name = $request->quiz_name;
+		$quiz->happening_at = $request->happening_at;
+
+		$quiz->save();
+
+		return response()->json($quiz);
+	}
 }
 
 
