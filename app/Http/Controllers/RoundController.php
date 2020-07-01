@@ -25,4 +25,14 @@ class RoundController extends Controller
 		$fromQuiz = Round::where('quiz', $quiz)->get();
 		return response()->json($fromQuiz);
 	}
+
+	function updateRound(Request $request, $roundId) {
+		$round = Round::find($roundId);
+
+		$round->round_name = $request->round_name;
+
+		$round->save();
+
+		return response()->json($round);
+	}
 }

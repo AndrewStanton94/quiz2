@@ -44,6 +44,27 @@ export default {
 			} catch (e) {
 				console.warn(e);
 			}
-		}
+		},
+		async rename({ commit, getters }, {id, round_name}) {
+			try {
+				const {data} = await axios.patch(`round/${id}`, {
+					round_name
+				});
+
+				const rounds = getters.rounds[data.quiz];
+				const index = rounds.findIndex((round) =>
+					round.id === id
+				);
+
+				rounds.splice(index, 1, data);
+				commit('SET_ROUNDS', {
+					quizId: data.quiz,
+					rounds,
+				});
+
+			} catch (e) {
+				console.warn(e);
+			}
+		},
 	}
 };

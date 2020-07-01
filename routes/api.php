@@ -40,6 +40,7 @@ Route::group([
 		return $round;
 	});
 	Route::get('fromQuiz/{quiz}', 'RoundController@quizRounds');
+	Route::patch('{roundId}', 'RoundController@updateRound');
 });
 
 Route::group([

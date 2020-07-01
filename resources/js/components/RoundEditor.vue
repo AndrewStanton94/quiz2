@@ -1,7 +1,27 @@
 <template>
 	<section class="mb-5 border-bottom pb-3">
 		<header class="p-3 bg-info">
-			<h2>{{ round.round_order }} - {{ round.round_name }}</h2>
+			<div class="row">
+				<h2
+					class="col-md-8"
+				>
+					{{ round.round_order }} -
+					<span 
+						class="d-inline"
+						:contenteditable="canRenameRound"
+						:class="{ 'form-control' : canRenameRound }"
+						@blur="captureNewName($event)"
+					>
+						{{ round.round_name }}
+					</span>
+				</h2>
+				<button
+					class="col mr-md-5 btn btn-info"
+					@click="toggleRenameRound"
+				>
+					Rename round
+				</button>
+			</div>
 			<div class="row align-items-baseline">
 				<p class="col-md-8">
 					{{ questionsForRound.length }} questions
@@ -78,6 +98,7 @@ export default Vue.extend({
 				question: '',
 				question_order: 0,
 			},
+			canRenameRound: false,
 		};
 	},
 	computed: {
@@ -98,6 +119,7 @@ export default Vue.extend({
 	methods: {
 		...mapActions({
 			newQuestionAction: 'question/create',
+			renameRound: 'round/rename',
 		}),
 		toggleNewQuestion() {
 			this.newQuestion.question_order = this.questionsForRound.length + 1;
@@ -117,6 +139,17 @@ export default Vue.extend({
 				};
 			});
 		},
+		toggleRenameRound() {
+			const currentState = this.canRenameRound;
+			if (currentState) {
+				this.renameRound(this.round);
+			}
+
+			this.canRenameRound = !currentState;
+		},
+		captureNewName(e) {
+			this.round.round_name = e.target.innerText;
+		}
 	},
 });
 </script>
