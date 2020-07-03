@@ -52,6 +52,7 @@ Route::group([
 	});
 	Route::get('fromQuiz/{quiz}', 'QuestionController@quizQuestions');
 	Route::get('fromQuiz/{quiz}/{round}', 'QuestionController@roundQuestions');
+	Route::delete('{id}', 'QuestionController@deleteQuestion');
 });
 
 Route::group([

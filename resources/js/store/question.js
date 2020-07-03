@@ -47,6 +47,23 @@ export default {
 			} catch (e) {
 				console.warn(e);
 			}
+		},
+		async delete({commit, getters}, {id}) {
+			try {
+				const {data} = await axios.delete(`question/${id}`);
+				const questions = getters.questions[data.quiz];
+				const indexToDelete = questions.findIndex((question) =>
+					question.id === data.id
+				);
+				questions.splice(indexToDelete, 1);
+				commit('SET_QUESTIONS', {
+					quizId: id,
+					questions
+				});
+			}
+			catch (e) {
+				console.log(e);
+			}
 		}
 	}
 };

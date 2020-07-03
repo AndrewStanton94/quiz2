@@ -34,4 +34,15 @@ class QuestionController extends Controller
 		])->get();
 		return response()->json($fromQuiz);
 	}
+
+	function deleteQuestion($id) {
+		$question = Question::find($id);
+		if($question !== null) {
+			$question->delete();
+			$status = 200;
+		} else {
+			$status = 404;
+		}
+		return response()->json($question, $status);
+	}
 }
