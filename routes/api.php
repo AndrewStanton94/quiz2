@@ -41,6 +41,7 @@ Route::group([
 	});
 	Route::get('fromQuiz/{quiz}', 'RoundController@quizRounds');
 	Route::patch('{roundId}', 'RoundController@updateRound');
+	Route::delete('{roundId}', 'RoundController@deleteRound');
 });
 
 Route::group([

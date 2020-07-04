@@ -66,5 +66,25 @@ export default {
 				console.warn(e);
 			}
 		},
+		async deleteRound({commit, getters}, roundId) {
+			console.log('Delete round: ', roundId);
+			try {
+				const {data} = await axios.delete(`round/${roundId}`);
+				const rounds = getters.rounds[data.quiz];
+				const index = rounds.findIndex((round) =>
+					round.id === roundId
+				);
+
+				rounds.splice(index, 1);
+				commit('SET_ROUNDS', {
+					quizId: data.quiz,
+					rounds,
+				});
+			} catch (e) {
+				if (e?.response?.status === 409) {
+					console.warn('Can\'t delete a round that still has questions');
+				} else console.warn(e);
+			}
+		}
 	}
 };

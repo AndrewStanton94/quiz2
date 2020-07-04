@@ -15,12 +15,23 @@
 						{{ round.round_name }}
 					</span>
 				</h2>
-				<button
-					class="col mr-md-5 btn btn-info"
-					@click="toggleRenameRound"
+				<span
+					class="col d-inline"
 				>
-					Rename round
-				</button>
+					<button
+						class="btn btn-info"
+						@click="toggleRenameRound"
+					>
+						Rename round
+					</button>
+					<button
+						class="btn btn-danger"
+						:disabled="questionsForRound.length > 0"
+						@click="deleteRound"
+					>
+						Delete round
+					</button>
+				</span>
 			</div>
 			<div class="row align-items-baseline">
 				<p class="col-md-8">
@@ -120,6 +131,7 @@ export default Vue.extend({
 		...mapActions({
 			newQuestionAction: 'question/create',
 			renameRound: 'round/rename',
+			deleteRoundAction: 'round/deleteRound',
 		}),
 		toggleNewQuestion() {
 			this.newQuestion.question_order = this.questionsForRound.length + 1;
@@ -149,6 +161,14 @@ export default Vue.extend({
 		},
 		captureNewName(e) {
 			this.round.round_name = e.target.innerText;
+		},
+		deleteRound() {
+			console.log('Delete', this.round);
+			if (this.questionsForRound.length) {
+				console.warn('Can\'t delete a round that still has questions');
+			} else {
+				this.deleteRoundAction(this.round.id);
+			}
 		}
 	},
 });

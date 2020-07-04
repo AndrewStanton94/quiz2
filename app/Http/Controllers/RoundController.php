@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Round;
+use App\Question;
 
 class RoundController extends Controller
 {
@@ -34,5 +35,23 @@ class RoundController extends Controller
 		$round->save();
 
 		return response()->json($round);
+	}
+
+	function deleteRound(Request $request, $roundId) {
+		$round = Round::find($roundId);
+		$questions = Question::where([
+			['quiz', '=', $round->quiz],
+			['round', '=', $round->round_order]
+		])->get();
+
+		if ($questions->isEmpty()) {
+			$round->delete();
+			return response()->json($round);
+		} else {
+			return response()->json([
+				'error' => 'Must delete questions before deleting the round',
+				'data' => $questions
+			], 409);
+		}
 	}
 }
