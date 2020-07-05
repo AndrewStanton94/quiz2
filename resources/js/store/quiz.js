@@ -65,6 +65,31 @@ export default {
 			} catch (e) {
 				console.warn(e);
 			}
+		},
+		async deleteQuiz({commit, getters}, quizId) {
+			console.log('Delete quiz: ', quizId);
+			try {
+				const {data} = await axios.delete(`quiz/${quizId}`);
+				const quizzes = getters.ownQuizzes;
+				const index = quizzes.findIndex((quiz) =>
+					quiz.id === quizId
+				);
+
+				quizzes.splice(index, 1);
+				commit('SET_OWN_QUIZZES', quizzes);
+				return {
+					status: 'success'
+				};
+			} catch (e) {
+				if (e?.response?.status === 409) {
+					const { error, rounds, questions } = e.response.data;
+					console.warn(error);
+					return {
+						status: 'error',
+						data: e.response.data
+					};
+				} else console.warn(e);
+			}
 		}
 	}
 };

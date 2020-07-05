@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Quiz;
+use App\Round;
+use App\Question;
 
 class QuizController extends Controller
 {
@@ -45,6 +47,23 @@ class QuizController extends Controller
 		$quiz->save();
 
 		return response()->json($quiz);
+	}
+
+	function deleteQuiz($quizId) {
+		$quiz = Quiz::find($quizId);
+		$rounds = Round::where('quiz', $quizId)->get();
+		$questions = Question::where('quiz', $quizId)->get();
+
+		if ($questions->isEmpty() && $rounds->isEmpty()) {
+			$quiz->delete();
+			return response()->json($quiz);
+		} else {
+			return response()->json([
+				'error' => 'Must delete questions and rounds before deleting the quiz',
+				'rounds' => $rounds,
+				'questions' => $questions,
+			], 409);
+		}
 	}
 }
 

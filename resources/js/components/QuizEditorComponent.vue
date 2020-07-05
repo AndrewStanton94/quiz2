@@ -1,8 +1,79 @@
 <template>
 	<section>
+		<template
+			v-if="requestError"
+		>
+			<div
+				class="modal fade"
+				tabindex="-1"
+				role="dialog"
+				aria-labelledby="exampleModalLabel"
+				aria-hidden="true"
+				:class="{show: requestError, 'd-block': requestError}"
+			>
+				<div
+					class="modal-dialog"
+				>
+					<div
+						class="modal-content"
+					>
+						<div
+							class="modal-header"
+						>
+							<h2
+								class="modal-title"
+								id="exampleModalLabel"
+							>
+								Delete quiz?
+							</h2>
+						</div>
+						<div
+							class="modal-body"
+						>
+							<p>This quiz still has rounds and|or questions. Delete these first</p>
+							<table class="table table-borderless">
+								<caption>
+									Quiz data to delete
+								</caption>
+								<tbody>
+									<tr>
+										<th scope="row">
+											Rounds
+										</th>
+										<td>
+											 {{ requestError.rounds.length }}
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">
+											Questions
+										</th>
+										<td>
+											{{ requestError.questions.length }}
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div
+							class="modal-footer"
+						>
+							<button
+								type="button"
+								class="btn btn-secondary"
+								data-dismiss="modal"
+								@click="requestError=false"
+							>
+								Close
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
 		<header>
 			<div
-				class="row p-4 align-items-baseline"
+				class="row p-4 align-items-center"
 			>
 				<h1
 					class="col-md-8"
@@ -12,12 +83,23 @@
 				>
 					{{ currentQuiz.quiz_name }}
 				</h1>
-				<button
-					class="col btn btn-primary"
-					@click="toggleNameEdit"
+				<span
+					class="col"
 				>
-					Edit quiz name
-				</button>
+					<button
+						class="btn btn-primary"
+						@click="toggleNameEdit"
+					>
+						Edit quiz name
+					</button>
+
+					<button
+						class="btn btn-danger"
+						@click="deleteQuiz"
+					>
+						Delete quiz
+					</button>
+				</span>
 			</div>
 		</header>
 
@@ -83,6 +165,7 @@ export default Vue.extend({
 				round_name: '',
 				round_order: 0,
 			},
+			requestError: false,
 		};
 	},
 	computed: {
@@ -118,6 +201,7 @@ export default Vue.extend({
 			getQuestions: 'question/get',
 			newRoundAction: 'round/create',
 			renameQuiz: 'quiz/rename',
+			deleteQuizAction: 'quiz/deleteQuiz',
 		}),
 		captureNewName(e) {
 			console.log(e.target.innerText);
@@ -145,6 +229,18 @@ export default Vue.extend({
 				};
 			});
 		},
+		async deleteQuiz() {
+			const {status, data} = await this.deleteQuizAction(this.quizId);
+			if (status === 'error') {
+				this.requestError = data;
+			}
+			else {
+				this.$router.replace({
+					path: '/dashboard',
+				})
+			}
+			console.log(status, data);
+		}
 	},
 });
 </script>

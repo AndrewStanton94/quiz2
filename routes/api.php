@@ -30,6 +30,7 @@ Route::group([
 	Route::get('mine', 'QuizController@myQuizzes');
 	Route::get('others', 'QuizController@othersQuizzes');
 	Route::patch('{quizId}', 'QuizController@updateQuiz');
+	Route::delete('{quizId}', 'QuizController@deleteQuiz');
 });
 
 Route::group([
