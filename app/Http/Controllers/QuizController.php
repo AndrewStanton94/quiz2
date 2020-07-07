@@ -19,7 +19,7 @@ class QuizController extends Controller
 		$quiz = new Quiz();
 		$quiz->quiz_name = $request->name;
 		$quiz->happening_at = $request->date;
-		$quiz->question_master = $request->questionMaster || $user->id;
+		$quiz->question_master = $user->id;
 		$quiz->save();
 		return response()->json($quiz);
 	}
