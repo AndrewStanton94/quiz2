@@ -52,8 +52,10 @@ Vue.use((Vue) => {
 	};
 });
 
-store.dispatch('auth/attempt', localStorage.getItem('token')).then(() => {
-	store.dispatch('quiz/get');
+store.dispatch(
+	'auth/attempt',
+	localStorage.getItem('token')
+).then(() => {
 	new Vue({
 		render: (createElement) => createElement(App),
 		router,

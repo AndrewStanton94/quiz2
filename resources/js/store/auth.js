@@ -28,7 +28,7 @@ export default {
 			return dispatch('attempt', response.data.token);
 		},
 
-		async attempt({commit}, token) {
+		async attempt({commit, dispatch}, token) {
 			if(!token) {
 				return;
 			}
@@ -36,6 +36,7 @@ export default {
 			try {
 				let response = await axios.get('auth/me');
 				commit('SET_USER', response.data);
+				dispatch('quiz/get', {}, {root:true});
 			} catch (e) {
 				commit('SET_TOKEN', null);
 				commit('SET_USER', null);
