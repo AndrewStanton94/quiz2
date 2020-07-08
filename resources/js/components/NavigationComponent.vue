@@ -50,9 +50,11 @@ export default {
 		}),
 		signOut() {
 			this.signOutAction().then(() => {
-				this.$router.replace({
-					path: '/',
-				});
+				if (this.$route.path !== '/') {
+					this.$router.replace({
+						path: '/',
+					});
+				}
 			});
 		},
 	},
