@@ -18,6 +18,9 @@ export default {
 			const newAnswers = { ...startingAnswers };
 			state.answers = newAnswers;
 		},
+		EMPTY_ANSWERS(state) {
+			state.answers = {};
+		}
 	},
 	actions: {
 		async get({ commit }, quizId) {
@@ -59,6 +62,9 @@ export default {
 				quizAnswers.splice(indexToReplace, 1, data);
 				commit('SET_ANSWERS', quizAnswers)
 			}).catch(( err ) => console.log(err));
+		},
+		logout({commit}){
+			commit('EMPTY_ANSWERS');
 		}
 	}
 };

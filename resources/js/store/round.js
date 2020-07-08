@@ -17,6 +17,9 @@ export default {
 			const newRounds = { ...startingRounds };
 			state.rounds = newRounds;
 		},
+		EMPTY_ROUNDS (state) {
+			state.rounds = {};
+		}
 	},
 	actions: {
 		async get({ commit }, quizId) {
@@ -85,6 +88,9 @@ export default {
 					console.warn('Can\'t delete a round that still has questions');
 				} else console.warn(e);
 			}
+		},
+		logout({commit}) {
+			commit('EMPTY_ROUNDS');
 		}
 	}
 };

@@ -28,6 +28,8 @@ Route::group([
 	'prefix' => 'quiz'
 ], function(){
 	Route::post('', 'QuizController@create');
+	Route::get('', 'QuizController@allQuizzes')
+		->withoutMiddleware(['auth:api']);
 	Route::get('mine', 'QuizController@myQuizzes');
 	Route::get('others', 'QuizController@othersQuizzes');
 	Route::patch('{quizId}', 'QuizController@updateQuiz');

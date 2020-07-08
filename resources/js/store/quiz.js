@@ -47,6 +47,17 @@ export default {
 				commit('SET_OTHERS_QUIZZES', data)
 			);
 		},
+		// Get all quizzes, use when not logged in
+		async getAnon({ commit }) {
+			try {
+				const {data} = await axios.get('quiz');
+				commit('SET_OTHERS_QUIZZES', data)
+				commit('SET_OWN_QUIZZES', [])
+			} catch (e) {
+				console.warn(e);
+			}
+
+		},
 		create({ commit}, quizInfo) {
 			try {
 				axios.post('quiz', quizInfo).then(({data}) =>

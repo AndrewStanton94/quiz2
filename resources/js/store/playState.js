@@ -1,14 +1,18 @@
 import axios from 'axios';
 
+const startingState = {
+	quiz: null,
+	round: null,
+	question: null,
+	playing: false,
+	marking: false,
+	resumeAt: {},
+};
+
 export default {
 	namespaced: true,
 	state: {
-		quiz: null,
-		round: null,
-		question: null,
-		playing: false,
-		marking: false,
-		resumeAt: {},
+		...startingState
 	},
 	getters: {
 		playstate(state) {
@@ -70,5 +74,8 @@ export default {
 
 			commit('SET_PLAYSTATE', playstate);
 		},
+		logout({commit}) {
+			commit('SET_PLAYSTATE', startingState);
+		}
 	}
 };

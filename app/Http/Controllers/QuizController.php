@@ -38,6 +38,11 @@ class QuizController extends Controller
 		return response()->json($others);
 	}
 
+	function allQuizzes() {
+		$quizzes = Quiz::all();
+		return response()->json($quizzes);
+	}
+
 	function updateQuiz(Request $request, $quizId) {
 		$quiz = Quiz::find($quizId);
 

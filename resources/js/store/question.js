@@ -18,6 +18,9 @@ export default {
 			const newQuestions = { ...startingQuestions };
 			state.questions = newQuestions;
 		},
+		EMPTY_QUESTIONS(state) {
+			state.questions = {};
+		}
 	},
 	actions: {
 		async get({ commit }, quizId) {
@@ -64,6 +67,9 @@ export default {
 			catch (e) {
 				console.log(e);
 			}
+		},
+		logout({commit}) {
+			commit('EMPTY_QUESTIONS');
 		}
 	}
 };
