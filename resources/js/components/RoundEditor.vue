@@ -140,11 +140,11 @@ export default Vue.extend({
 			const maxQuestion = Math.max(...questionOrder);
 			const hasGaps = maxQuestion !== questionOrder.length;
 			const firstGap = (questions) =>
-				questions
-				.find((question, i, arr) =>
+				questions.find((question, i, arr) =>
 				// Next value that isn't one more than the current
 					i + 1 <= arr.length
-					&& question + 1 !== arr[ i + 1 ]);
+					&& question + 1 !== arr[i + 1]
+				) + 1;
 
 			return hasGaps ?
 				firstGap(questionOrder)
