@@ -67,7 +67,7 @@
 						<label for="questionOrder">Question order</label>
 						<input
 							id="questionOrder"
-							v-model="newQuestion.question_order"
+							v-model.number="newQuestion.question_order"
 							class="form-control"
 							type="number"
 						>
@@ -126,6 +126,30 @@ export default Vue.extend({
 				({ round }) => round === round_order,
 			);
 		},
+		nextQuestionNumber() {
+			const questionOrder = this.questionsForRound.map(
+				({question_order}) => question_order
+			).sort((a, b) => a - b);
+			console.log(questionOrder)
+
+			// Covers the empty and missing 1 edge cases
+			if (!questionOrder.includes(1)) {
+				return 1;
+			}
+
+			const maxQuestion = Math.max(...questionOrder);
+			const hasGaps = maxQuestion !== questionOrder.length;
+			const firstGap = (questions) =>
+				questions
+				.find((question, i, arr) =>
+				// Next value that isn't one more than the current
+					i + 1 <= arr.length
+					&& question + 1 !== arr[ i + 1 ]);
+
+			return hasGaps ?
+				firstGap(questionOrder)
+				: maxQuestion + 1;
+		},
 	},
 	methods: {
 		...mapActions({
@@ -134,7 +158,7 @@ export default Vue.extend({
 			deleteRoundAction: 'round/deleteRound',
 		}),
 		toggleNewQuestion() {
-			this.newQuestion.question_order = this.questionsForRound.length + 1;
+			this.newQuestion.question_order = this.nextQuestionNumber;
 			this.showNewQuestion = !this.showNewQuestion;
 		},
 		makeNewQuestion() {
@@ -147,7 +171,7 @@ export default Vue.extend({
 			}).then(() => {
 				this.newQuestion = {
 					question: '',
-					question_order: this.newQuestion.question_order + 1,
+					question_order: this.nextQuestionNumber,
 				};
 			});
 		},
