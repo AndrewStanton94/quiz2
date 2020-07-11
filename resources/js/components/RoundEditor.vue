@@ -134,7 +134,7 @@ export default Vue.extend({
 		nextQuestionNumber() {
 			const questionOrder = this.questionsForRound.map(
 				({question_order}) => question_order
-			).sort((a, b) => a - b);
+			);
 			console.log(questionOrder)
 
 			// Covers the empty and missing 1 edge cases
