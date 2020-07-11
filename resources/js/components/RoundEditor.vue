@@ -94,6 +94,7 @@
 <script>
 import Vue from 'vue';
 import { mapGetters, mapActions } from 'vuex';
+import {sortObjectListByKey} from '../utils.js';
 
 export default Vue.extend({
 	props: {
@@ -122,8 +123,12 @@ export default Vue.extend({
 		},
 		questionsForRound() {
 			const { round_order } = this.round;
-			return this.questionsForQuiz.filter(
+			const roundQuestions = this.questionsForQuiz.filter(
 				({ round }) => round === round_order,
+			);
+			return sortObjectListByKey(
+				roundQuestions,
+				'question_order'
 			);
 		},
 		nextQuestionNumber() {
