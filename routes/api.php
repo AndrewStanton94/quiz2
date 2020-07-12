@@ -32,8 +32,10 @@ Route::group([
 		->withoutMiddleware(['auth:api']);
 	Route::get('mine', 'QuizController@myQuizzes');
 	Route::get('others', 'QuizController@othersQuizzes');
-	Route::patch('{quizId}', 'QuizController@updateQuiz');
-	Route::delete('{quizId}', 'QuizController@deleteQuiz');
+	Route::patch('{quizId}', 'QuizController@updateQuiz')
+		->middleware('can:update,quiz');
+	Route::delete('{quizId}', 'QuizController@deleteQuiz')
+		->middleware('can:update,quiz');
 });
 
 Route::group([
@@ -44,8 +46,10 @@ Route::group([
 		return $round;
 	});
 	Route::get('fromQuiz/{quiz}', 'RoundController@quizRounds');
-	Route::patch('{roundId}', 'RoundController@updateRound');
-	Route::delete('{roundId}', 'RoundController@deleteRound');
+	Route::patch('{roundId}', 'RoundController@updateRound')
+		->middleware('can:update,round');
+	Route::delete('{roundId}', 'RoundController@deleteRound')
+		->middleware('can:update,round');
 });
 
 Route::group([
@@ -57,7 +61,8 @@ Route::group([
 	});
 	Route::get('fromQuiz/{quiz}', 'QuestionController@quizQuestions');
 	Route::get('fromQuiz/{quiz}/{round}', 'QuestionController@roundQuestions');
-	Route::delete('{id}', 'QuestionController@deleteQuestion');
+	Route::delete('{id}', 'QuestionController@deleteQuestion')
+		->middleware('can:update,question');
 });
 
 Route::group([
@@ -65,5 +70,6 @@ Route::group([
 ], function(){
 	Route::post('', 'AnswerController@Create');
 	Route::get('from/{quiz}', 'AnswerController@myAnswers');
-	Route::patch('{answer}', 'AnswerController@update');
+	Route::patch('{answer}', 'AnswerController@update')
+		->middleware('can:update,answer');
 });
